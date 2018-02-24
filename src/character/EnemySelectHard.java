@@ -1,8 +1,9 @@
+package character;
 
 public class EnemySelectHard extends EnemyBase {
 
   private String name;
-  private int hitPoint;
+//  private int hitPoint;
   private int attack;
   private int magic;
   private int defense;
@@ -12,12 +13,12 @@ public class EnemySelectHard extends EnemyBase {
   public void setName(String name) {
     this.name = name + "+";
   }
-
+/**
   @Override
   public void setHitPoint(int hitPoint) {
     this.hitPoint = hitPoint;
   }
-
+*/
   @Override
   public void setAttack(int attack) {
     this.attack = attack * 2;
@@ -42,12 +43,12 @@ public class EnemySelectHard extends EnemyBase {
   public String getName() {
     return this.name;
   }
-
+/**
   @Override
   public int getHitPoint() {
     return this.hitPoint;
   }
-
+*/
   @Override
   public int getAttack() {
     return this.attack;

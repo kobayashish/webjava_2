@@ -1,13 +1,14 @@
+package character;
 
 public class PlayerSelect extends PlayerBase {
 
-  private String name;
-  private int hitPoint;
-  private int attack;
-  private int magic;
-  private int defense;
+//  private String name;
+//  private int hitPoint;
+//  private int attack;
+//  private int magic;
+//  private int defense;
   private String job;
-
+/**
   @Override
   public void setName(String name) {
     this.name = name;
@@ -32,12 +33,12 @@ public class PlayerSelect extends PlayerBase {
   public void setDefense(int defense) {
     this.defense = defense;
   }
-
+*/
   @Override
   public void setJob(String job) {
     this.job = job;
   }
-
+/**
   @Override
   public String getName() {
     return this.name;
@@ -62,7 +63,7 @@ public class PlayerSelect extends PlayerBase {
   public int getDefense() {
     return this.defense;
   }
-
+*/
   @Override
   public String getJob() {
     return this.job;

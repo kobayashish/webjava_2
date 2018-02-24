@@ -1,4 +1,13 @@
 import java.util.Scanner;
+import character.EnemyBase;
+import character.EnemySelect;
+import character.EnemySelectHard;
+import character.PlayerBase;
+import character.PlayerSelect;
+import character.PlayerSelectEasy;
+import stage.StageBase;
+import stage.StageSelectA;
+import stage.StageSelectM;
 
 /**
  * BattleHero
@@ -9,81 +18,18 @@ public class BattleHero {
 
     System.out.println("◇◆BattleHero◆◇\n");
 
-    BattleHero battleHero = new BattleHero();
-
-    PlayerBase player;
+    PlayerBase player = playerFactory();
     //player = new PlayerSelect();
     //player = new PlayerSelectEasy();
-    //ランダム
-    int ramdamPlayer = new java.util.Random().nextInt(2);
 
-    switch (ramdamPlayer) {
-
-      case 0:
-        //[ ノーマル ]
-        player = new PlayerSelect();
-        break;
-
-      case 1:
-        //[ イージー ]
-        player = new PlayerSelectEasy();
-        break;
-
-      default:
-        player = new PlayerSelect();
-        break;
-    }
-
-
-    EnemyBase enemy;
+    EnemyBase enemy = enemyFactory();
     //enemy = new EnemySelect();
     //enemy = new EnemySelectHard();
-    //ランダム
-    int ramdamEnemy = new java.util.Random().nextInt(2);
 
-    switch (ramdamEnemy) {
-
-      case 0:
-        //[ ノーマル ]
-        enemy = new EnemySelect();
-        break;
-
-      case 1:
-        //[ ハード ]
-        enemy = new EnemySelectHard();
-        break;
-
-      default:
-        enemy = new EnemySelect();
-        break;
-    }
-
-    StageBase stage;
+    StageBase stage = stageFactory();
     //stage = new StageSelectA();
     //stage = new StageSelectM();
 
-    //ランダム
-    int ramdamStage = new java.util.Random().nextInt(2);
-
-    switch (ramdamStage) {
-
-      case 0:
-        //[ 物理エリア ]
-        stage = new StageSelectA();
-        break;
-
-      case 1:
-        //[ 魔法エリア ]
-        stage = new StageSelectM();
-        break;
-
-      default:
-        stage = new StageSelectA();
-        break;
-    }
-
-    //プレイヤー作成
-    stage.start(player);
 
     //プレイヤー決定フラグ
     boolean playerFlg = false;
@@ -91,11 +37,14 @@ public class BattleHero {
     //Loop
     while (playerFlg == false) {
 
+      //プレイヤー作成
+      stage.start(player);
+
       //選択メッセージ表示
       System.out.println("＜このプレイヤーで開始しますか？＞");
       System.out.println("OK！：o");
       System.out.println("NO！：n\n");
-      battleHero.playerLook(player);
+      player.playerLook(player);
 
       //入力待ち
       Scanner scan = new Scanner(System.in);
@@ -112,6 +61,7 @@ public class BattleHero {
         //[ 入力が 'n' ]
         case "n":
           System.out.println("プレイヤーを変更します。\n");
+          player = playerFactory();
           stage.start(player);
           break;
 
@@ -123,49 +73,96 @@ public class BattleHero {
       }
     }
 
-    //エネミー配置
-    stage.addEnemy(enemy);
+    boolean nextFlg = true;
+    while (nextFlg == true) {
 
-    System.out.println("＜敵と遭遇しました。＞\n");
-    battleHero.enemyLook(enemy);
+      stage = stageFactory();
+      enemy = enemyFactory();
 
-    //入力待ち
-    Scanner scan = new Scanner(System.in);
-    scan.next();
+      //エネミー配置
+      stage.addEnemy(enemy);
 
-    //バトル
-    stage.battle(player, enemy);
+      System.out.println("＜敵と遭遇しました。＞\n");
+      enemy.enemyLook(enemy);
+
+      //入力待ち
+      Scanner scan = new Scanner(System.in);
+      scan.next();
+
+      //バトル
+      nextFlg = stage.battle(player, enemy);
+    }
+
 
     //終了メッセージ
     System.out.println("\nおわり");
   }
 
 
-  /**
-   * プレイヤー能力表示
-   */
-  public void playerLook(PlayerBase player) {
 
-    System.out.println("【Player】");
-    System.out.println("名前:" + player.getName());
-    System.out.println("体力:" + player.getHitPoint());
-    System.out.println("攻撃:" + player.getAttack());
-    System.out.println("魔法:" + player.getMagic());
-    System.out.println("防御:" + player.getDefense());
-    System.out.println("職業:" + player.getJob());
+  /**
+   * プレイヤー能力補正決定
+   */
+  public static PlayerBase playerFactory() {
+
+    int ramdamPlayer = new java.util.Random().nextInt(2);
+
+    switch (ramdamPlayer) {
+
+      case 0:
+        //[ ノーマル ]
+        return new PlayerSelect();
+
+      case 1:
+        //[ イージー ]
+        return new PlayerSelectEasy();
+
+      default:
+        return new PlayerSelect();
+    }
   }
 
   /**
-   * 敵能力表示
+   * エネミー能力補正決定
    */
-  public void enemyLook(EnemyBase enemy) {
+  public static EnemyBase enemyFactory() {
 
-    System.out.println("【Enemy】");
-    System.out.println("名前:" + enemy.getName());
-    System.out.println("体力:" + enemy.getHitPoint());
-    System.out.println("攻撃:" + enemy.getAttack());
-    System.out.println("魔法:" + enemy.getMagic());
-    System.out.println("防御:" + enemy.getDefense());
-    System.out.println("報酬:" + enemy.getReward());
+    int ramdamEnemy = new java.util.Random().nextInt(2);
+
+    switch (ramdamEnemy) {
+
+      case 0:
+        //[ ノーマル ]
+        return new EnemySelect();
+
+      case 1:
+        //[ ハード ]
+        return new EnemySelectHard();
+
+      default:
+        return new EnemySelect();
+    }
+  }
+
+  /**
+   * ステージ決定
+   */
+  public static StageBase stageFactory() {
+
+    int ramdamStage = new java.util.Random().nextInt(2);
+
+    switch (ramdamStage) {
+
+      case 0:
+        //[ 物理エリア ]
+        return new StageSelectA();
+
+      case 1:
+        //[ 魔法エリア ]
+        return new StageSelectM();
+
+      default:
+        return new StageSelectA();
+    }
   }
 }

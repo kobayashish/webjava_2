@@ -1,53 +1,54 @@
+package character;
 
-public class EnemySelect extends EnemyBase {
+public class PlayerSelectEasy extends PlayerBase {
 
   private String name;
-  private int hitPoint;
+//  private int hitPoint;
   private int attack;
   private int magic;
   private int defense;
-  private int reward;
+  private String job;
 
   @Override
   public void setName(String name) {
-    this.name = name;
+    this.name = name + "+";
   }
-
+/**
   @Override
   public void setHitPoint(int hitPoint) {
     this.hitPoint = hitPoint;
   }
-
+*/
   @Override
   public void setAttack(int attack) {
-    this.attack = attack;
+    this.attack = attack * 2;
   }
 
   @Override
   public void setMagic(int magic) {
-    this.magic = magic;
+    this.magic = magic * 2;
   }
 
   @Override
   public void setDefense(int defense) {
-    this.defense = defense;
+    this.defense = defense * 2;
   }
 
   @Override
-  public void setReward(int reward) {
-    this.reward = reward;
+  public void setJob(String job) {
+    this.job = job + "+";
   }
 
   @Override
   public String getName() {
     return this.name;
   }
-
+/**
   @Override
   public int getHitPoint() {
     return this.hitPoint;
   }
-
+*/
   @Override
   public int getAttack() {
     return this.attack;
@@ -64,8 +65,8 @@ public class EnemySelect extends EnemyBase {
   }
 
   @Override
-  public int getReward() {
-    return this.reward;
+  public String getJob() {
+    return this.job;
   }
 
 }
